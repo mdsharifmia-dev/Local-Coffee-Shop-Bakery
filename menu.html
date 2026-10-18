@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Our Menu & Order Online | Local Coffee Shop & Bakery</title>
+    <meta name="description" content="Explore our handcrafted coffee, specialty cold brews, and oven-fresh French pastries. Order online easily via WhatsApp.">
+    <meta name="theme-color" content="#181310">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Our Menu & Online Order - Local Coffee Shop">
+    <meta property="og:description" content="Explore freshly brewed coffee, specialty drinks, and buttery pastries. Order online now.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=1200&q=80">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ==================== NAVIGATION ==================== -->
+
+    <header class="site-header">
+
+        <nav class="navbar">
+
+            <a href="index.html" class="logo">
+                ☕ Local Coffee Shop
+            </a>
+
+            <button class="hamburger" id="hamburger" aria-label="Open navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+
+                <li>
+                    <a href="about.html">About</a>
+                </li>
+
+                <li>
+                    <a href="menu.html" class="active">Menu</a>
+                </li>
+
+                <li>
+                    <a href="gallery.html">Gallery</a>
+                </li>
+
+                <li>
+                    <a href="contact.html">Contact</a>
+                </li>
+
+                <li>
+                    <a href="menu.html" class="nav-order-pill">Order Online</a>
+                </li>
+            </ul>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ==================== MAIN ==================== -->
+
+    <main>
+
+        <!-- Page Header -->
+
+        <section class="page-banner">
+
+            <span class="section-label">HANDCRAFTED & BAKED FRESH DAILY</span>
+
+            <h1>Our Delicious Menu</h1>
+
+            <p>
+                From single-origin artisan brews to buttery golden pastries, each item is freshly made with love.
+            </p>
+
+        </section>
+
+
+        <!-- Menu Filter -->
+
+        <section class="section">
+
+            <div class="menu-filter-container">
+                <button class="filter-btn active" data-filter="all">🌟 All Items</button>
+                <button class="filter-btn" data-filter="drinks">☕ Fresh Brews & Drinks</button>
+                <button class="filter-btn" data-filter="pastries">🥐 Artisan Pastries</button>
+            </div>
+
+
+            <!-- Drinks Section -->
+
+            <div class="menu-group" id="drinksGroup">
+
+                <div class="section-heading" style="margin-bottom: 2rem; text-align: left;">
+                    <span class="section-label">FRESHLY BREWED</span>
+                    <h2>☕ Coffee & Specialty Drinks</h2>
+                </div>
+
+                <div class="menu-grid">
+
+                    <!-- Espresso -->
+                    <article class="menu-item" data-category="drinks">
+                        <div class="menu-item-image">
+                            <img src="https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?auto=format&fit=crop&w=600&q=80" alt="Espresso" loading="lazy">
+                            <span class="item-badge hot">Signature</span>
+                        </div>
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3>Espresso</h3>
+                                <span class="price">$3.50</span>
+                            </div>
+                            <p>Rich, intense, and bold double shot extracted from freshly ground Arabica beans.</p>
+                            <div class="menu-item-footer">
+                                <span class="item-tag">Hot / Double Shot</span>
+                                <button class="order-btn" onclick="openOrderModal('Espresso', 3.50, 'https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?auto=format&fit=crop&w=600&q=80')">
+                                    <span>🛒</span> Order Now
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Latte -->
+                    <article class="menu-item" data-category="drinks">
+                        <div class="menu-item-image">
+                            <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=600&q=80" alt="Caffe Latte" loading="lazy">
+                            <span class="item-badge">Bestseller</span>
+                        </div>
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3>Caffè Latte</h3>
+                                <span class="price">$4.50</span>
+                            </div>
+                            <p>Velvety smooth steamed whole milk poured over a rich espresso base with delicate art.</p>
+                            <div class="menu-item-footer">
+                                <span class="item-tag">Hot / Iced</span>
+                                <button class="order-btn" onclick="openOrderModal('Caffè Latte', 4.50, 'https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=600&q=80')">
+                                    <span>🛒</span> Order Now
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Cappuccino -->
+                    <article class="menu-item" data-category="drinks">
+                        <div class="menu-item-image">
+                            <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=600&q=80" alt="Cappuccino" loading="lazy">
+                            <span class="item-badge">Classic</span>
+                        </div>
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3>Cappuccino</h3>
+                                <span class="price">$4.00</span>
+                            </div>
+                            <p>Harmonious equal parts of rich espresso, steamed milk, and a cloud of fluffy milk foam.</p>
+                            <div class="menu-item-footer">
+                                <span class="item-tag">Classic Roast</span>
+                                <button class="order-btn" onclick="openOrderModal('Cappuccino', 4.00, 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=600&q=80')">
+                                    <span>🛒</span> Order Now
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Hot Chocolate -->
+                    <article class="menu-item" data-category="drinks">
+                        <div class="menu-item-image">
+                            <img src="https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&w=600&q=80" alt="Hot Chocolate" loading="lazy">
+                            <span class="item-badge">Sweet Tooth</span>
+                        </div>
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3>Artisan Hot Chocolate</h3>
+                                <span class="price">$4.00</span>
+                            </div>
+                            <p>Real melted Belgian cocoa blended with steamed milk and a dusting of cocoa powder.</p>
+                            <div class="menu-item-footer">
+                                <span class="item-tag">Comfort Drink</span>
+                                <button class="order-btn" onclick="openOrderModal('Artisan Hot Chocolate', 4.00, 'https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&w=600&q=80')">
+                                    <span>🛒</span> Order Now
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Iced Coffee -->
+                    <article class="menu-item" data-category="drinks">
+                        <div class="menu-item-image">
+                            <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=600&q=80" alt="Iced Coffee Cold Brew" loading="lazy">
+                            <span class="item-badge hot">Summer Fav</span>
+                        </div>
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3>Cold Brew Iced Coffee</h3>
+                                <span class="price">$3.50</span>
+                            </div>
+                            <p>Slow-steeped for 18 hours for maximum smoothness with subtle chocolate notes on ice.</p>
+                            <div class="menu-item-footer">
+                                <span class="item-tag">Refreshing / Iced</span>
+                                <button class="order-btn" onclick="openOrderModal('Cold Brew Iced Coffee', 3.50, 'https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=600&q=80')">
+                                    <span>🛒</span> Order Now
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Chai Latte -->
+                    <article class="menu-item" data-category="drinks">
+                        <div class="menu-item-image">
+                            <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80" alt="Spiced Chai Latte" loading="lazy">
+                            <span class="item-badge">Organic</span>
+                        </div>
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3>Spiced Chai Latte</h3>
+                                <span class="price">$4.50</span>
+                            </div>
+                            <p>Authentic black tea infused with cardamom, cinnamon, clove, and steamed honey milk.</p>
+                            <div class="menu-item-footer">
+                                <span class="item-tag">Spiced & Cozy</span>
+                                <button class="order-btn" onclick="openOrderModal('Spiced Chai Latte', 4.50, 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80')">
+                                    <span>🛒</span> Order Now
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+
+            </div>
+
+
+            <!-- Pastries Section -->
+
+            <div class="menu-group" id="pastriesGroup" style="margin-top: 4.5rem;">
+
+                <div class="section-heading" style="margin-bottom: 2rem; text-align: left;">
+                    <span class="section-label">OVEN FRESH</span>
+                    <h2>🥐 Homemade Bakery & Pastries</h2>
+                </div>
+
+                <div class="menu-grid">
+
+                    <!-- Croissant -->
+                    <article class="menu-item" data-category="pastries">
+                        <div class="menu-item-image">
+                            <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=80" alt="Butter Croissant" loading="lazy">
+                            <span class="item-badge">Top Pick</span>
+                        </div>
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3>French Butter Croissant</h3>
+                                <span class="price">$3.00</span>
+                            </div>
+                            <p>Layer upon layer of buttery French pastry dough, baked until golden, crispy, and airy.</p>
+                            <div class="menu-item-footer">
+                                <span class="item-tag">Fresh Every Morning</span>
+                                <button class="order-btn" onclick="openOrderModal('French Butter Croissant', 3.00, 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=80')">
+                                    <span>🛒</span> Order Now
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Blueberry Muffin -->
+                    <article class="menu-item" data-category="pastries">
+                        <div class="menu-item-image">
+                            <img src="https://images.unsplash.com/photo-1607958996333-41aef7caefaa?auto=format&fit=crop&w=600&q=80" alt="Blueberry Muffin" loading="lazy">
+                            <span class="item-badge">Fresh Fruit</span>
+                        </div>
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3>Wild Blueberry Muffin</h3>
+                                <span class="price">$3.50</span>
+                            </div>
+                            <p>Moist, fluffy muffin packed with wild blueberries and finished with a crunchy sugar top.</p>
+                            <div class="menu-item-footer">
+                                <span class="item-tag">Daily Bake</span>
+                                <button class="order-btn" onclick="openOrderModal('Wild Blueberry Muffin', 3.50, 'https://images.unsplash.com/photo-1607958996333-41aef7caefaa?auto=format&fit=crop&w=600&q=80')">
+                                    <span>🛒</span> Order Now
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Cinnamon Roll -->
+                    <article class="menu-item" data-category="pastries">
+                        <div class="menu-item-image">
+                            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80" alt="Cinnamon Roll" loading="lazy">
+                            <span class="item-badge hot">Customer Favorite</span>
+                        </div>
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3>Glazed Cinnamon Roll</h3>
+                                <span class="price">$4.00</span>
+                            </div>
+                            <p>Swirled with brown sugar and Ceylon cinnamon, drenched in luscious vanilla cream glaze.</p>
+                            <div class="menu-item-footer">
+                                <span class="item-tag">Served Warm</span>
+                                <button class="order-btn" onclick="openOrderModal('Glazed Cinnamon Roll', 4.00, 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80')">
+                                    <span>🛒</span> Order Now
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Chocolate Chip Cookie -->
+                    <article class="menu-item" data-category="pastries">
+                        <div class="menu-item-image">
+                            <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=600&q=80" alt="Chocolate Chip Cookie" loading="lazy">
+                            <span class="item-badge">Chef Choice</span>
+                        </div>
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3>Chunkey Chocolate Cookie</h3>
+                                <span class="price">$2.50</span>
+                            </div>
+                            <p>Crispy edges with a gooey center filled with 70% dark chocolate chunks and sea salt flakes.</p>
+                            <div class="menu-item-footer">
+                                <span class="item-tag">Baked Hourly</span>
+                                <button class="order-btn" onclick="openOrderModal('Chunkey Chocolate Cookie', 2.50, 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=600&q=80')">
+                                    <span>🛒</span> Order Now
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Scone -->
+                    <article class="menu-item" data-category="pastries">
+                        <div class="menu-item-image">
+                            <img src="https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?auto=format&fit=crop&w=600&q=80" alt="English Scone" loading="lazy">
+                            <span class="item-badge">Traditional</span>
+                        </div>
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3>English Butter Scone</h3>
+                                <span class="price">$3.00</span>
+                            </div>
+                            <p>Golden traditional scone served with artisanal strawberry preserves and clotted cream.</p>
+                            <div class="menu-item-footer">
+                                <span class="item-tag">Tea & Coffee Companion</span>
+                                <button class="order-btn" onclick="openOrderModal('English Butter Scone', 3.00, 'https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?auto=format&fit=crop&w=600&q=80')">
+                                    <span>🛒</span> Order Now
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Danish -->
+                    <article class="menu-item" data-category="pastries">
+                        <div class="menu-item-image">
+                            <img src="https://images.unsplash.com/photo-1509365465985-25d11c17e812?auto=format&fit=crop&w=600&q=80" alt="Danish Pastry" loading="lazy">
+                            <span class="item-badge">Fruity Delight</span>
+                        </div>
+                        <div class="menu-item-body">
+                            <div class="menu-item-header">
+                                <h3>Raspberry Danish Pastry</h3>
+                                <span class="price">$3.50</span>
+                            </div>
+                            <p>Multi-layered flaky pastry crowned with organic raspberry compote and cream cheese custard.</p>
+                            <div class="menu-item-footer">
+                                <span class="item-tag">Artisan Baked</span>
+                                <button class="order-btn" onclick="openOrderModal('Raspberry Danish Pastry', 3.50, 'https://images.unsplash.com/photo-1509365465985-25d11c17e812?auto=format&fit=crop&w=600&q=80')">
+                                    <span>🛒</span> Order Now
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==================== ORDER POPUP MODAL ==================== -->
+
+    <div class="modal-backdrop" id="orderModal">
+
+        <div class="order-modal">
+
+            <div class="modal-header">
+                <h3>🛍️ Place Your Order</h3>
+                <button class="modal-close-btn" onclick="closeOrderModal()" aria-label="Close modal">✕</button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="modal-item-summary">
+                    <div>
+                        <span class="modal-item-name" id="modalItemName">Espresso</span>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2px;">Freshly prepared for you</p>
+                    </div>
+                    <span class="modal-item-price" id="modalItemPrice">$3.50</span>
+                </div>
+
+                <!-- Quantity Control -->
+                <div class="qty-control">
+                    <span style="font-weight: 600; font-size: 0.95rem;">Quantity</span>
+                    <div class="qty-buttons">
+                        <button class="qty-btn" type="button" onclick="changeQty(-1)">−</button>
+                        <span class="qty-value" id="modalQty">1</span>
+                        <button class="qty-btn" type="button" onclick="changeQty(1)">+</button>
+                    </div>
+                </div>
+
+                <!-- Special Notes / Customization -->
+                <div class="modal-input-group">
+                    <label for="orderNotes">Special Instructions (e.g. Oat Milk, Extra Hot, Less Sugar)</label>
+                    <input type="text" id="orderNotes" placeholder="Any preferences?">
+                </div>
+
+                <div class="modal-input-group">
+                    <label for="customerName">Your Name</label>
+                    <input type="text" id="customerName" placeholder="Enter your name">
+                </div>
+
+                <!-- Actions -->
+                <div class="modal-actions">
+                    <button class="btn btn-whatsapp" style="width: 100%;" onclick="submitWhatsAppOrder()">
+                        📱 Confirm via WhatsApp
+                    </button>
+                    <button class="btn btn-secondary" style="width: 100%;" onclick="submitDirectOrder()">
+                        ☕ Pay at Counter / Pick Up
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================== FOOTER ==================== -->
+
+    <footer class="site-footer">
+
+        <div class="footer-content">
+
+            <div class="footer-brand">
+
+                <h3>☕ Local Coffee Shop</h3>
+
+                <p>
+                    Artisanal coffee, freshly baked sourdough and pastries, and a warm community space to call home.
+                </p>
+
+            </div>
+
+
+            <div class="footer-social">
+
+                <h3>Follow Us</h3>
+
+                <div class="social-links">
+
+                    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+                        Facebook
+                    </a>
+
+                    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+                        Instagram
+                    </a>
+
+                    <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
+                        Twitter
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            <p>
+                © 2026 Local Coffee Shop. All rights reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
