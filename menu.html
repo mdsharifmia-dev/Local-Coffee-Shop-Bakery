@@ -431,6 +431,45 @@
                     <input type="text" id="customerName" placeholder="Enter your name">
                 </div>
 
+                <!-- Payment Method Selection -->
+                <div class="modal-input-group">
+                    <label>Payment Method</label>
+                    <div class="payment-methods-grid">
+                        <label class="payment-card active" onclick="selectPaymentMethod('cash')">
+                            <input type="radio" name="paymentMethod" value="Cash on Delivery / Counter" checked>
+                            <span class="pay-icon">💵</span>
+                            <span class="pay-label">Cash / Counter</span>
+                        </label>
+                        <label class="payment-card" onclick="selectPaymentMethod('bkash')">
+                            <input type="radio" name="paymentMethod" value="bKash">
+                            <span class="pay-icon">📱</span>
+                            <span class="pay-label">bKash</span>
+                        </label>
+                        <label class="payment-card" onclick="selectPaymentMethod('nagad')">
+                            <input type="radio" name="paymentMethod" value="Nagad">
+                            <span class="pay-icon">📲</span>
+                            <span class="pay-label">Nagad</span>
+                        </label>
+                        <label class="payment-card" onclick="selectPaymentMethod('card')">
+                            <input type="radio" name="paymentMethod" value="Card at Pickup">
+                            <span class="pay-icon">💳</span>
+                            <span class="pay-label">Card at Pickup</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Dynamic Mobile Banking Instructions Box -->
+                <div class="payment-instructions-box" id="paymentInstructionsBox" style="display: none;">
+                    <p class="pay-instr-text" id="payInstrText">Please send money to our merchant/personal number:</p>
+                    <div class="pay-number-display">
+                        <span>Send Money To:</span> <strong id="payNumberText">017XXXXXXXX</strong>
+                    </div>
+                    <div style="margin-top: 0.75rem;">
+                        <label for="trxIdInput" style="font-size: 0.82rem; font-weight: 600; color: var(--text-main); display: block; margin-bottom: 0.35rem;">Transaction ID / Sender Number (TrxID)</label>
+                        <input type="text" id="trxIdInput" placeholder="e.g. 9X4K2L or Last 4 digits" style="font-size: 0.9rem; padding: 0.65rem 0.85rem;">
+                    </div>
+                </div>
+
                 <!-- Actions -->
                 <div class="modal-actions">
                     <button class="btn btn-whatsapp" style="width: 100%;" onclick="submitWhatsAppOrder()">

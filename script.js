@@ -4,10 +4,11 @@
 
 /* 
  * CONFIGURATION: 
- * Set your coffee shop's WhatsApp phone number with country code (e.g. "88017XXXXXXXX" or "15551234567")
- * If left empty, it will open WhatsApp with the pre-filled order for the customer to pick a recipient.
+ * Set your coffee shop's contact & payment details here:
  */
-const COFFEE_SHOP_WHATSAPP_NUMBER = ""; 
+const COFFEE_SHOP_WHATSAPP_NUMBER = ""; // e.g. "88017XXXXXXXX" or "15551234567"
+const COFFEE_SHOP_BKASH_NUMBER = "017XXXXXXXX"; // Your bKash Personal or Merchant number
+const COFFEE_SHOP_NAGAD_NUMBER = "017XXXXXXXX"; // Your Nagad Personal or Merchant number 
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -102,24 +103,68 @@ document.addEventListener("DOMContentLoaded", function () {
 let currentOrder = {
     name: "Espresso",
     unitPrice: 3.50,
-    qty: 1
+    qty: 1,
+    paymentMethod: "Cash on Delivery / Counter"
 };
+
+function selectPaymentMethod(method) {
+    const cards = document.querySelectorAll(".payment-card");
+    cards.forEach(card => card.classList.remove("active"));
+
+    const instructionsBox = document.getElementById("paymentInstructionsBox");
+    const payNumberText = document.getElementById("payNumberText");
+    const payInstrText = document.getElementById("payInstrText");
+
+    if (method === "bkash") {
+        currentOrder.paymentMethod = "bKash";
+        if (instructionsBox) instructionsBox.style.display = "block";
+        if (payInstrText) payInstrText.textContent = "Please Send Money to our bKash number:";
+        if (payNumberText) payNumberText.textContent = COFFEE_SHOP_BKASH_NUMBER;
+    } else if (method === "nagad") {
+        currentOrder.paymentMethod = "Nagad";
+        if (instructionsBox) instructionsBox.style.display = "block";
+        if (payInstrText) payInstrText.textContent = "Please Send Money to our Nagad number:";
+        if (payNumberText) payNumberText.textContent = COFFEE_SHOP_NAGAD_NUMBER;
+    } else if (method === "card") {
+        currentOrder.paymentMethod = "Card at Pickup";
+        if (instructionsBox) instructionsBox.style.display = "none";
+    } else {
+        currentOrder.paymentMethod = "Cash on Delivery / Counter";
+        if (instructionsBox) instructionsBox.style.display = "none";
+    }
+
+    // Set active state on the corresponding card
+    cards.forEach(card => {
+        const input = card.querySelector('input[type="radio"]');
+        if (input && input.value.toLowerCase().includes(method)) {
+            card.classList.add("active");
+            input.checked = true;
+        }
+    });
+}
 
 function openOrderModal(itemName, itemPrice) {
     currentOrder.name = itemName;
     currentOrder.unitPrice = parseFloat(itemPrice);
     currentOrder.qty = 1;
+    currentOrder.paymentMethod = "Cash on Delivery / Counter";
 
     const modal = document.getElementById("orderModal");
     const modalItemName = document.getElementById("modalItemName");
     const modalItemPrice = document.getElementById("modalItemPrice");
     const modalQty = document.getElementById("modalQty");
     const notesInput = document.getElementById("orderNotes");
+    const trxInput = document.getElementById("trxIdInput");
+    const nameInput = document.getElementById("customerName");
 
     if (modalItemName) modalItemName.textContent = currentOrder.name;
     if (modalItemPrice) modalItemPrice.textContent = `$${currentOrder.unitPrice.toFixed(2)}`;
     if (modalQty) modalQty.textContent = currentOrder.qty;
     if (notesInput) notesInput.value = "";
+    if (trxInput) trxInput.value = "";
+    if (nameInput) nameInput.value = "";
+
+    selectPaymentMethod("cash");
 
     if (modal) {
         modal.classList.add("show");
@@ -148,11 +193,18 @@ function changeQty(delta) {
 function submitWhatsAppOrder() {
     const customerName = document.getElementById("customerName") ? document.getElementById("customerName").value.trim() : "";
     const notes = document.getElementById("orderNotes") ? document.getElementById("orderNotes").value.trim() : "";
+    const trxId = document.getElementById("trxIdInput") ? document.getElementById("trxIdInput").value.trim() : "";
     const total = (currentOrder.unitPrice * currentOrder.qty).toFixed(2);
+
+    let paymentText = currentOrder.paymentMethod;
+    if ((currentOrder.paymentMethod === "bKash" || currentOrder.paymentMethod === "Nagad") && trxId) {
+        paymentText += ` (TrxID / Sender: ${trxId})`;
+    }
 
     let message = `Hello! I would like to place an order at Local Coffee Shop:\n\n`;
     message += `☕ Item: ${currentOrder.qty}x ${currentOrder.name}\n`;
     message += `💰 Total: $${total}\n`;
+    message += `💳 Payment: ${paymentText}\n`;
     if (notes) {
         message += `📝 Notes: ${notes}\n`;
     }
@@ -173,8 +225,12 @@ function submitWhatsAppOrder() {
 
 function submitDirectOrder() {
     const customerName = document.getElementById("customerName") ? document.getElementById("customerName").value.trim() : "Valued Customer";
+    const trxId = document.getElementById("trxIdInput") ? document.getElementById("trxIdInput").value.trim() : "";
     const total = (currentOrder.unitPrice * currentOrder.qty).toFixed(2);
 
-    alert(`Thank you, ${customerName}!\n\nYour order for ${currentOrder.qty}x ${currentOrder.name} ($${total}) has been prepared for Pickup at the counter.`);
+    let paymentInfo = currentOrder.paymentMethod;
+    if (trxId) paymentInfo += ` (Ref: ${trxId})`;
+
+    alert(`Thank you, ${customerName}!\n\nYour order for ${currentOrder.qty}x ${currentOrder.name} ($${total}) has been received.\n\nPayment Method: ${paymentInfo}\nStatus: Ready for Pickup soon at the counter.`);
     closeOrderModal();
 }
