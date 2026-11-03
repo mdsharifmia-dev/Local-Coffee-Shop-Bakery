@@ -61,3 +61,10 @@ A modern, high-performance, responsive static website designed for an artisanal 
 - Tabnabbing secured with `rel="noopener noreferrer"`.
 - Mobile-first responsive with responsive media queries.
 - SEO-ready with OpenGraph metadata, `robots.txt`, and `sitemap.xml`.
+
+---
+
+## 📬 Developer & Contact
+- **Developer:** [Md Sharif Mia](https://github.com/mdsharifmia-dev)
+- **Email:** [mdsharifmia.dev@gmail.com](mailto:mdsharifmia.dev@gmail.com)
+- **GitHub:** [github.com/mdsharifmia-dev](https://github.com/mdsharifmia-dev)
