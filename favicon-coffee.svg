@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <!-- Steam rising upward (Hot Coffee / Tea vapor) -->
+  <path d="M20 22C18 16 23 11 20 5" stroke="#D97736" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M30 19C28 13 33 9 30 3" stroke="#D97736" stroke-width="5" stroke-linecap="round"/>
+  <path d="M40 22C38 16 43 11 40 5" stroke="#D97736" stroke-width="4.5" stroke-linecap="round"/>
+
+  <!-- Cup Body (Pure coffee cup with handle, no saucer, no background) -->
+  <path d="M11 26H47V42C47 51 40 57 29 57C18 57 11 51 11 42V26Z" fill="#B8581F" stroke="#B8581F" stroke-width="2"/>
+
+  <!-- Side Handle -->
+  <path d="M46 31C54 31 58 36 58 42C58 48 54 53 46 53" stroke="#B8581F" stroke-width="6" stroke-linecap="round"/>
+</svg>
