@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://localcoffeeshop.com/sitemap.xml
+Sitemap: https://mdsharifmia-dev.github.io/Local-Coffee-Shop-Bakery/sitemap.xml
