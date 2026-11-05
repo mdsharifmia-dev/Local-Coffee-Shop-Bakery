@@ -202,14 +202,14 @@ function submitWhatsAppOrder() {
     }
 
     let message = `Hello! I would like to place an order at Local Coffee Shop:\n\n`;
-    message += `☕ Item: ${currentOrder.qty}x ${currentOrder.name}\n`;
-    message += `💰 Total: $${total}\n`;
-    message += `💳 Payment: ${paymentText}\n`;
+    message += `• Item: ${currentOrder.qty}x ${currentOrder.name}\n`;
+    message += `• Total: $${total}\n`;
+    message += `• Payment: ${paymentText}\n`;
     if (notes) {
-        message += `📝 Notes: ${notes}\n`;
+        message += `• Notes: ${notes}\n`;
     }
     if (customerName) {
-        message += `👤 Name: ${customerName}\n`;
+        message += `• Customer Name: ${customerName}\n`;
     }
     message += `\nPlease confirm my order!`;
 

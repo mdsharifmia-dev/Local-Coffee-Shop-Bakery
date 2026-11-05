@@ -854,9 +854,19 @@ img {
 }
 
 .mission-icon {
-    font-size: 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+    background: var(--accent-subtle, rgba(184, 88, 31, 0.08));
+    color: var(--accent, #b8581f);
     margin-bottom: 1.25rem;
-    display: inline-block;
+}
+.mission-icon svg {
+    width: 28px;
+    height: 28px;
 }
 
 .mission-card h3 {
@@ -1697,4 +1707,12 @@ img {
     .contact-info {
         padding: 2.2rem 1.6rem;
     }
+}
+
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    margin-right: 0.4rem;
 }
