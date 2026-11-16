@@ -1,0 +1,82 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - APP_NAME=Local Coffee Shop & Bakery
+      - APP_ENV=production
+      - DEBUG=false
+      - DATABASE_URL=postgresql+asyncpg://coffee_user:coffee_pass@postgres:5432/coffee_shop
+      - DB_POOL_SIZE=20
+      - DB_MAX_OVERFLOW=10
+      - REDIS_URL=redis://redis:6379/0
+      - REDIS_CACHE_TTL_SECONDS=300
+      - RATE_LIMIT_REQUESTS_PER_MINUTE=60
+      - ALLOWED_ORIGINS=["*"]
+      - NOTIFICATION_EMAIL_TO=orders@localcoffeeshop.com
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - coffee_net
+    expose:
+      - "8000"
+
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+    networks:
+      - coffee_net
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - coffee_net
+    expose:
+      - "6379"
+
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=coffee_user
+      - POSTGRES_PASSWORD=coffee_pass
+      - POSTGRES_DB=coffee_shop
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U coffee_user -d coffee_shop"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - coffee_net
+    expose:
+      - "5432"
+
+volumes:
+  pg_data:
+  redis_data:
+
+networks:
+  coffee_net:
+    driver: bridge

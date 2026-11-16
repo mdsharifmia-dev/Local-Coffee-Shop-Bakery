@@ -1,0 +1,219 @@
+openapi: 3.0.3
+info:
+  title: Local Coffee Shop & Bakery API
+  description: High-performance asynchronous backend API with caching and atomic order transactions.
+  version: 1.0.0
+paths:
+  /health:
+    get:
+      summary: Health and Observability Probe
+      description: Returns real-time connectivity and status for PostgreSQL/SQLite and Redis.
+      responses:
+        '200':
+          description: All systems operational.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "healthy"
+                  database:
+                    type: string
+                    example: "connected"
+                  cache:
+                    type: string
+                    example: "connected"
+                  uptime_seconds:
+                    type: number
+                    example: 124.5
+        '503':
+          description: Core dependency unavailable.
+
+  /api/menu:
+    get:
+      summary: Get Menu Items
+      description: Returns active menu items. Served from Redis cache when warm.
+      parameters:
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [all, coffee, pastry]
+      responses:
+        '200':
+          description: List of menu items.
+          headers:
+            X-Cache-Status:
+              schema:
+                type: string
+                example: "HIT"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MenuItem'
+
+  /api/orders:
+    post:
+      summary: Submit Order
+      description: Atomically creates an order with server-verified prices and inventory checks.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderRequest'
+      responses:
+        '201':
+          description: Order placed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        '400':
+          description: Validation error or item unavailable.
+        '429':
+          description: Rate limit exceeded.
+
+  /api/contact:
+    post:
+      summary: Submit Contact Inquiry
+      description: Stores visitor inquiries and triggers background email alerts.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactRequest'
+      responses:
+        '201':
+          description: Message received.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Inquiry received successfully."
+
+components:
+  schemas:
+    MenuItem:
+      type: object
+      required: [id, name, category, price, is_available]
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Espresso"
+        category:
+          type: string
+          example: "coffee"
+        price:
+          type: number
+          format: float
+          example: 3.50
+        description:
+          type: string
+          example: "Selected high-altitude beans roasted in small batches."
+        is_available:
+          type: boolean
+          example: true
+        tag:
+          type: string
+          example: "POPULAR"
+        image_url:
+          type: string
+          example: "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a"
+
+    CreateOrderItemRequest:
+      type: object
+      required: [menu_item_id, quantity]
+      properties:
+        menu_item_id:
+          type: integer
+          example: 1
+        quantity:
+          type: integer
+          minimum: 1
+          example: 2
+
+    CreateOrderRequest:
+      type: object
+      required: [customer_name, payment_method, items]
+      properties:
+        customer_name:
+          type: string
+          example: "Alex Johnson"
+        customer_phone:
+          type: string
+          example: "+15551234567"
+        special_notes:
+          type: string
+          example: "Extra hot, oat milk"
+        payment_method:
+          type: string
+          enum: ["Cash on Delivery / Counter", "bKash", "Nagad", "Card at Pickup"]
+          example: "bKash"
+        transaction_ref:
+          type: string
+          example: "TRX-88291A"
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/CreateOrderItemRequest'
+
+    OrderResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 42
+        order_code:
+          type: string
+          example: "ORD-94A2B"
+        customer_name:
+          type: string
+          example: "Alex Johnson"
+        total_price:
+          type: number
+          format: float
+          example: 7.00
+        payment_method:
+          type: string
+          example: "bKash"
+        status:
+          type: string
+          example: "pending"
+        created_at:
+          type: string
+          format: date-time
+
+    ContactRequest:
+      type: object
+      required: [name, email, subject, message]
+      properties:
+        name:
+          type: string
+          example: "John Doe"
+        email:
+          type: string
+          format: email
+          example: "john@example.com"
+        subject:
+          type: string
+          example: "Catering Inquiry"
+        message:
+          type: string
+          example: "I would like to order coffee for 30 people."
