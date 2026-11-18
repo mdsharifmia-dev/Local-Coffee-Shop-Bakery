@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import (
     async_sessionmaker,
     create_async_engine,
 )
-from sqlalchemy.pool import NullPool, QueuePool
+from sqlalchemy.pool import AsyncAdaptedQueuePool, NullPool
 from app.core.config import settings
 from app.models.base import Base
 
@@ -19,8 +19,8 @@ if is_sqlite:
     engine_kwargs["connect_args"] = {"check_same_thread": False}
     engine_kwargs["poolclass"] = NullPool
 else:
-    # PostgreSQL production connection pooling
-    engine_kwargs["poolclass"] = QueuePool
+    # PostgreSQL production connection pooling (AsyncAdaptedQueuePool)
+    engine_kwargs["poolclass"] = AsyncAdaptedQueuePool
     engine_kwargs["pool_size"] = settings.DB_POOL_SIZE
     engine_kwargs["max_overflow"] = settings.DB_MAX_OVERFLOW
     engine_kwargs["pool_timeout"] = settings.DB_POOL_TIMEOUT
@@ -48,5 +48,9 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
 
 async def init_db() -> None:
     """Creates database schema tables if they do not already exist."""
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+    try:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+    except Exception:
+        # Handle concurrent table creation race across multi-worker startup
+        pass

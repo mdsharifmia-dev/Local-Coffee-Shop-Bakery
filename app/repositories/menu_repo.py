@@ -1,5 +1,6 @@
 from typing import List, Optional
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.menu import MenuItem
 from app.schemas.menu import MenuItemCreate, MenuItemUpdate
@@ -172,12 +173,17 @@ class MenuRepository:
             return 0
 
         count = 0
-        for item_data in INITIAL_MENU_DATA:
-            item = MenuItem(**item_data)
-            db.add(item)
-            count += 1
-        await db.commit()
-        return count
+        try:
+            for item_data in INITIAL_MENU_DATA:
+                item = MenuItem(**item_data)
+                db.add(item)
+                count += 1
+            await db.commit()
+            return count
+        except IntegrityError:
+            # Another concurrent Gunicorn worker already seeded the table
+            await db.rollback()
+            return 0
 
 
 menu_repo = MenuRepository()
